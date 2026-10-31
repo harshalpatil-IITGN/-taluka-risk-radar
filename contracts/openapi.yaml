@@ -1,0 +1,381 @@
+openapi: 3.1.0
+info:
+  title: Taluka Risk Radar API
+  version: 0.1.0
+  description: >
+    Agentic early-warning system for Maharashtra farm-climate risk.
+    Owner: Mohit. Changes via PR only.
+
+servers:
+  - url: http://localhost:8000
+    description: Local dev
+  - url: https://taluka-risk-radar.onrender.com
+    description: Production (Render/HF Spaces)
+
+paths:
+  /health:
+    get:
+      summary: Liveness check
+      operationId: getHealth
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+
+  /sources/status:
+    get:
+      summary: Source health statuses
+      operationId: getSourcesStatus
+      responses:
+        "200":
+          description: List of source health entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SourceHealthEntry"
+
+  /talukas:
+    get:
+      summary: List / search talukas
+      operationId: getTalukas
+      parameters:
+        - name: division
+          in: query
+          schema:
+            type: string
+        - name: q
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of talukas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Taluka"
+
+  /risk/map:
+    get:
+      summary: Latest risk scores for all pilot talukas (map markers)
+      operationId: getRiskMap
+      responses:
+        "200":
+          description: Array of risk summaries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RiskResult"
+
+  /risk:
+    get:
+      summary: Full risk detail for a taluka
+      operationId: getRisk
+      parameters:
+        - name: taluka_id
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: as_of
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Risk result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RiskResult"
+
+  /prices:
+    get:
+      summary: Mandi prices with MSP comparison
+      operationId: getPrices
+      parameters:
+        - name: commodity
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: district
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Price result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PriceResult"
+
+  /agent/run:
+    post:
+      summary: Start an agent run
+      operationId: postAgentRun
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AgentRunRequest"
+      responses:
+        "202":
+          description: Run accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  run_id:
+                    type: string
+                    format: uuid
+
+  /agent/runs/{id}/stream:
+    get:
+      summary: SSE stream of trace events for an agent run
+      operationId: getAgentRunStream
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Server-Sent Events stream
+          content:
+            text/event-stream: {}
+
+  /agent/runs/{id}:
+    get:
+      summary: Get final agent run result
+      operationId: getAgentRun
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Agent result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentResult"
+
+  /portfolio/analyze:
+    post:
+      summary: Analyze a portfolio of places
+      operationId: postPortfolioAnalyze
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                places:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "200":
+          description: Ranked portfolio digest
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RiskResult"
+
+  /telegram/webhook:
+    post:
+      summary: Telegram webhook endpoint
+      operationId: postTelegramWebhook
+      responses:
+        "200":
+          description: Webhook processed
+
+  /admin/chaos:
+    post:
+      summary: Simulate source outage (admin only)
+      operationId: postAdminChaos
+      security:
+        - adminToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source:
+                  type: string
+                enabled:
+                  type: boolean
+      responses:
+        "200":
+          description: Chaos mode updated
+
+  /admin/refresh:
+    post:
+      summary: Trigger data ingestion (admin only)
+      operationId: postAdminRefresh
+      security:
+        - adminToken: []
+      responses:
+        "202":
+          description: Ingestion triggered
+
+components:
+  securitySchemes:
+    adminToken:
+      type: apiKey
+      in: header
+      name: X-Admin-Token
+
+  schemas:
+    Taluka:
+      type: object
+      properties:
+        id: { type: integer }
+        name_en: { type: string }
+        name_mr: { type: string, nullable: true }
+        district: { type: string }
+        division: { type: string }
+        lat: { type: number }
+        lon: { type: number }
+        pilot: { type: boolean }
+
+    RiskResult:
+      type: object
+      properties:
+        taluka_id: { type: integer }
+        taluka_name: { type: string }
+        as_of_date: { type: string, format: date }
+        stress_index: { type: number }
+        level: { type: string, enum: [LOW, WATCH, HIGH, SEVERE] }
+        components: { type: array, items: { $ref: "#/components/schemas/ComponentDetail" } }
+        triggers: { type: array, items: { $ref: "#/components/schemas/TriggerDetail" } }
+        data_freshness: { type: array, items: { $ref: "#/components/schemas/DataFreshness" } }
+        confidence: { type: number, nullable: true }
+        source: { type: string }
+        as_of: { type: string, format: date-time, nullable: true }
+        stale: { type: boolean }
+        error: { type: string, nullable: true }
+
+    ComponentDetail:
+      type: object
+      properties:
+        name: { type: string }
+        value: { type: number }
+        weight: { type: number }
+        contribution: { type: number }
+        description: { type: string }
+
+    TriggerDetail:
+      type: object
+      properties:
+        name: { type: string }
+        fired: { type: boolean }
+        threshold: { type: string }
+        actual: { type: string }
+        description: { type: string }
+
+    DataFreshness:
+      type: object
+      properties:
+        source: { type: string }
+        as_of: { type: string, format: date-time, nullable: true }
+        stale: { type: boolean }
+
+    SourceHealthEntry:
+      type: object
+      properties:
+        source: { type: string }
+        status: { type: string, enum: [OK, DEGRADED, DOWN, DISABLED_CHAOS] }
+        last_attempt_at: { type: string, format: date-time, nullable: true }
+        last_success_at: { type: string, format: date-time, nullable: true }
+        last_error: { type: string, nullable: true }
+        latency_ms: { type: integer, nullable: true }
+        rows_written: { type: integer, nullable: true }
+        stale: { type: boolean }
+
+    PriceResult:
+      type: object
+      properties:
+        commodity: { type: string }
+        district: { type: string, nullable: true }
+        entries: { type: array, items: { $ref: "#/components/schemas/PriceEntry" } }
+        msp: { type: number, nullable: true }
+        trend: { type: string, nullable: true }
+        source: { type: string }
+        as_of: { type: string, format: date-time, nullable: true }
+        stale: { type: boolean }
+        error: { type: string, nullable: true }
+
+    PriceEntry:
+      type: object
+      properties:
+        market: { type: string }
+        commodity: { type: string }
+        variety: { type: string, nullable: true }
+        arrival_date: { type: string, format: date }
+        modal_price: { type: number, nullable: true }
+        min_price: { type: number, nullable: true }
+        max_price: { type: number, nullable: true }
+
+    AgentRunRequest:
+      type: object
+      properties:
+        taluka_id: { type: integer, nullable: true }
+        place_text: { type: string, nullable: true }
+        audience: { type: string, default: farmer }
+        language: { type: string, default: en }
+
+    AgentResult:
+      type: object
+      properties:
+        run_id: { type: string, format: uuid }
+        status: { type: string, enum: [RUNNING, COMPLETED, DEGRADED, FAILED] }
+        output: { type: object, nullable: true }
+        trace: { type: array, items: { $ref: "#/components/schemas/TraceEvent" } }
+        error: { type: string, nullable: true }
+
+    TraceEvent:
+      type: object
+      properties:
+        node: { type: string }
+        event_type: { type: string }
+        data: { type: object }
+        timestamp: { type: string, format: date-time }
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code: { type: string }
+            message: { type: string }
+            retryable: { type: boolean }

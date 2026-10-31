@@ -1,0 +1,27 @@
+# CODEOWNERS — Taluka Risk Radar
+# See docs/TEAM_WORK_SPLIT.md for full details.
+# Each line: pattern  owner(s)
+
+# Harshal — Data & Pipelines
+/pipelines/             @harshalpatil-IITGN
+/db/                    @harshalpatil-IITGN
+/contracts/schema.sql   @harshalpatil-IITGN
+
+# Kunal — AI, Engine & Agent
+/engine/                @kunal
+/rag/                   @kunal
+/agent/                 @kunal
+/evals/                 @kunal
+/contracts/models.py    @kunal
+
+# Mohit — Platform, API & UI
+/api/                   @mohit
+/web/                   @mohit
+/bot/                   @mohit
+/infra/                 @mohit
+/contracts/openapi.yaml @mohit
+/README.md              @mohit
+
+# Shared — all review
+/contracts/             @harshalpatil-IITGN @kunal @mohit
+/docs/                  @harshalpatil-IITGN @kunal @mohit

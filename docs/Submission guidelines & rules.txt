@@ -1,0 +1,34 @@
+Submission guidelines & rules
+📝 Hackathon Project Submission Template
+1. Problem Statement
+Target Issue & Context: Clearly define the specific real-world problem being addressed within your chosen track
+
+Target Audience: Who is directly impacted by this problem
+
+2. Solution Description
+High-Level Overview: Describe how your solution solves the problem using a combination of AI reasoning and/or autonomous agent workflows.
+
+Technical Architecture: Briefly explain the core tech stack, key models, datasets used, and system design
+
+3. Prototype Link
+Live Deployment / Hosted App: URL to your live, working web app, mobile build, or deployed endpoint (e.g., Vercel, Streamlit, Hugging Face Spaces live URL).
+
+4. Demo Video
+Video Link: Link to a 2–3 minute video demonstration (Loom, YouTube, Google Drive).
+
+Requirements: Must show an end-to-end live demonstration of the working system, highlighting real-time AI reasoning, tool usage, or agentic execution under realistic conditions.
+
+5. GitHub Repository Link
+Repository URL: Link to your public GitHub/GitLab repository.
+
+Requirements: Clean README.md with setup/installation instructions, architecture diagram/flowchart, and all source code/configuration files.
+
+6. Presentation / Pitch Deck
+Deck Link: Link to your 5–7 slide pitch deck (Google Slides, Canva, PDF).
+
+Recommended Structure
+Title & Team Overview
+The Problem & Real-World Context
+The Solution & Key Features
+Technical System Architecture & Innovation
+Future Roadmap & Live Demo Summary

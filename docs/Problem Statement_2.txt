@@ -1,0 +1,13 @@
+Climate, Resource Infrastructure & Global Supply Resilience
+This track addresses systemic operational and environmental challenges including extreme weather shifts, agricultural yield instability, supply chain disruptions, energy grid pressure, and resource depletion.
+
+Track Concept & Explanation
+This track addresses systemic operational and environmental challenges—including extreme weather shifts (El Niño/La Niña, flash floods, heatwaves), agricultural yield instability, supply chain disruptions, energy grid pressure, and resource depletion. Unpredictable climate events and supply bottlenecks severely impact agricultural yields, urban infrastructure, water/energy reserves, and global logistics.
+
+Solutions in this track combine predictive AI models (geospatial analytics, time-series forecasting, vision models) with autonomous agent execution engines (automated logistics, dynamic resource routing, multi-system orchestration) to predict risks, optimize resource distribution, and automate emergency response workflows.
+
+Problem Spectrum
+Multilingual Agritech & Resource Advisory Assistant: A lightweight conversational/voice assistant that ingests weather API forecasts, market mandi prices, and local soil metrics to deliver plain-language, crop-level protective advice and planting/harvesting schedules to farmers.
+Predictive Climate & Micro-Location Yield Engine: A multimodal intelligence pipeline that combines satellite imagery (Copernicus/ISRO), soil sensor feeds, and historical weather/monsoon datasets to forecast micro-climate risks (such as localized droughts or unseasonal rainfall) and output risk mitigation plans.
+Smart Grid & Urban Resource Allocation Controller: A low-latency control agent designed for low-compute edge hardware or IoT devices to monitor local water reserves, solar micro-grids, or urban traffic during extreme heatwaves or power surges, dynamically reallocating resources to prevent localized blackouts or shortages.
+Autonomous Emergency Response & Supply Chain Logistics Swarm: An execution engine for emergency climate or supply disruptions that continuously monitors weather/fleet telemetry, queries regional supplier inventory APIs, dynamically recalculates safe transit routes around affected zones, and dispatches automated relief orders end-to-end.

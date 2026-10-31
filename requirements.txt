@@ -1,0 +1,45 @@
+# === Core ===
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+python-dotenv>=1.0.0
+
+# === HTTP & Resilience ===
+httpx>=0.25.0
+tenacity>=8.2.0
+
+# === Database ===
+asyncpg>=0.29.0
+psycopg2-binary>=2.9.9
+supabase>=2.0.0
+
+# === Data Processing ===
+pandas>=2.1.0
+numpy>=1.26.0
+scipy>=1.11.0
+
+# === NLP & Fuzzy Matching ===
+rapidfuzz>=3.5.0
+
+# === LLM & Agent ===
+langgraph>=0.0.40
+langchain>=0.1.0
+langchain-google-genai>=1.0.0
+langchain-groq>=0.1.0
+google-generativeai>=0.3.0
+
+# === Embeddings & RAG ===
+sentence-transformers>=2.2.0
+pgvector>=0.2.0
+
+# === Telegram Bot ===
+python-telegram-bot>=20.7
+
+# === Testing & Linting ===
+pytest>=7.4.0
+pytest-asyncio>=0.23.0
+ruff>=0.1.0
+black>=23.0.0
+
+# === SSE ===
+sse-starlette>=1.8.0

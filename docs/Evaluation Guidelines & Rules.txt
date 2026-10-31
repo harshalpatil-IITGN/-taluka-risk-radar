@@ -1,0 +1,34 @@
+Evaluation Guidelines & Rules
+By registering and participating in the hackathon, all teams agree to abide by the following evaluation pillars, technical standards, and strict disqualification policies.
+
+1. Scoring Rubric (100 Points Total)
+Projects will be evaluated by our judging panel across four core pillars:
+
+Technical Architecture & Engineering Depth (20 Points)
+Code Quality & Modularity: Clean, well-structured codebase with efficient API integration and low latency.
+
+Depth of Implementation: Solutions must go beyond superficial frontend wrappers or basic API templates. We expect genuine technical execution (e.g., custom RAG pipelines, geospatial models, browser automation loops, or complex state graphs).
+
+AI Reasoning & Agentic Execution (25 Points)
+Autonomy & Workflow Resilience: For agentic builds—how effectively does the system plan, execute multi-step tool calls, handle errors, and self-correct?
+
+Model Accuracy & Guardrails: For AI builds—precision of reasoning and retrieval, minimisation of hallucinations, and robust source attribution.
+
+Problem Relevance, Impact & USP (25 Points)
+Real-World Value: Meaningful execution addressing actual civic, governance, climate, or supply chain challenges for affected populations or enterprise stakeholders.
+
+Unique Selling Proposition (USP): What makes this approach distinct? Clear differentiation from existing standard solutions, off-the-shelf chatbots, or traditional non-AI software.
+
+Innovation & Scalability: Novel problem formulation, original technical architecture, and long-term viability.
+
+Live Demonstration & Robustness (30 Points)
+End-to-End Execution: The app must run live during evaluation without crashing or breaking.
+
+Edge Case Resilience: Graceful handling of unexpected user inputs, missing data, or unpredictable network states.
+
+2. Strict Technical Compliance Rules
+No Dummy Data (Zero-Tolerance Policy): Hardcoded JSON files, static mock datasets, or fake placeholder numbers are strictly prohibited. Applications must connect to active backends and consume real-time APIs, live databases, or official open datasets (e.g., IMD, ISRO Bhuvan, Data.gov.in).
+
+Open Source & Boilerplate Policy: Reusing open-source libraries, SDKs, or starter boilerplate templates is permitted. However, all core logic, AI models, and agent workflows must be integrated and built during the hackathon window.
+
+Code Ownership & Explanation: Every team member must thoroughly understand the project architecture. If questioned during judging, members must be able to explain the codebase, data flow, and AI logic independently.

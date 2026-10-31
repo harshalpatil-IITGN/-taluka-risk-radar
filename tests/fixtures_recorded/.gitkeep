@@ -1,0 +1,2 @@
+# Placeholder for test fixtures (recorded real API responses).
+# Used in unit tests ONLY — the deployed app must never read these.
