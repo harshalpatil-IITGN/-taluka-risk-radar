@@ -7,7 +7,6 @@ Pure functions over pandas DataFrames. Re-normalises weights when a component is
 from __future__ import annotations
 
 from datetime import date
-from typing import Any
 
 from contracts.models import RiskResult
 

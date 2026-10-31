@@ -6,16 +6,6 @@ Each tool wraps a function from db/repo.py or engine/ and returns typed models f
 
 from __future__ import annotations
 
-from contracts.models import (
-    AlertResult,
-    DocHit,
-    ForecastResult,
-    PriceResult,
-    ReportResult,
-    RiskResult,
-    TalukaMatch,
-)
-
 # TODO: Implement each tool function:
 # - resolve_place(text) -> list[TalukaMatch]
 # - get_risk(taluka_id, as_of=None) -> RiskResult

@@ -7,7 +7,7 @@ Streams TraceEvents via SSE for the frontend trace view.
 
 from __future__ import annotations
 
-from typing import AsyncIterator
+from collections.abc import AsyncIterator
 
 from contracts.models import AgentRunRequest, TraceEvent
 

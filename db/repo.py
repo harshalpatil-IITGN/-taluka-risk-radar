@@ -6,13 +6,14 @@ All other modules (engine, agent, api) read data through these functions.
 
 from __future__ import annotations
 
-from datetime import date, datetime
+from datetime import date
 from typing import Any
 
 # TODO: Implement database connection setup (Supabase client or asyncpg pool)
 
 
 # --- Taluka ---
+
 
 def get_talukas(division: str | None = None, query: str | None = None) -> list[dict[str, Any]]:
     """List/search pilot talukas, optionally filtered by division or search text."""
@@ -26,6 +27,7 @@ def get_taluka_by_id(taluka_id: int) -> dict[str, Any] | None:
 
 # --- Weather ---
 
+
 def get_weather(taluka_id: int, start: date, end: date) -> list[dict[str, Any]]:
     """Get weather_daily rows for a taluka in a date range."""
     raise NotImplementedError
@@ -38,6 +40,7 @@ def upsert_weather(rows: list[dict[str, Any]]) -> int:
 
 # --- Climatology ---
 
+
 def get_climatology(taluka_id: int, window_days: int, month: int) -> dict[str, Any] | None:
     """Get climatology record for a taluka/window/month."""
     raise NotImplementedError
@@ -49,6 +52,7 @@ def upsert_climatology(rows: list[dict[str, Any]]) -> int:
 
 
 # --- Mandi Prices ---
+
 
 def get_prices(commodity: str, district: str | None = None, days: int = 14) -> list[dict[str, Any]]:
     """Get recent mandi prices for a commodity, optionally filtered by district."""
@@ -67,6 +71,7 @@ def get_msp(commodity: str) -> dict[str, Any] | None:
 
 # --- Risk Score ---
 
+
 def get_risk_score(taluka_id: int, as_of_date: date | None = None) -> dict[str, Any] | None:
     """Get the latest risk score for a taluka (or for a specific date)."""
     raise NotImplementedError
@@ -83,6 +88,7 @@ def upsert_risk_score(row: dict[str, Any]) -> None:
 
 
 # --- Source Health ---
+
 
 def get_source_health() -> list[dict[str, Any]]:
     """Get all source_health rows."""
@@ -102,12 +108,14 @@ def write_source_health(
 
 # --- Dead Letter ---
 
+
 def write_dead_letter(source: str, payload: dict, error: str) -> None:
     """Write a failed row to the dead-letter table."""
     raise NotImplementedError
 
 
 # --- Agent Run ---
+
 
 def save_agent_run(run: dict[str, Any]) -> None:
     """Save an agent run record."""
@@ -121,12 +129,14 @@ def get_agent_run(run_id: str) -> dict[str, Any] | None:
 
 # --- Alerts ---
 
+
 def save_alert(alert: dict[str, Any]) -> int:
     """Save an alert and return its ID."""
     raise NotImplementedError
 
 
 # --- Doc Chunks ---
+
 
 def search_doc_chunks(embedding: list[float], k: int = 5) -> list[dict[str, Any]]:
     """Cosine similarity search on doc_chunk embeddings."""

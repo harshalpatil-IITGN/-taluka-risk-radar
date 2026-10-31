@@ -34,6 +34,7 @@ app.add_middleware(
 
 # --- Global error handler (never expose stack traces) ---
 
+
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception) -> JSONResponse:
     """Catch unhandled exceptions and return the standard error shape."""
@@ -48,6 +49,7 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
 
 
 # --- Health ---
+
 
 @app.get("/health")
 async def health():

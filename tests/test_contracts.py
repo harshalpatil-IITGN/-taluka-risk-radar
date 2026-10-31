@@ -4,12 +4,9 @@ Verifies that Pydantic models can be instantiated and serialised.
 """
 
 from datetime import date, datetime
-from uuid import uuid4
 
 from contracts.models import (
-    AgentResult,
     AgentRunRequest,
-    AgentRunStatus,
     ComponentDetail,
     DataFreshness,
     ErrorDetail,
@@ -48,9 +45,7 @@ def test_risk_result_instantiation():
                 description="Drought stress trigger fired",
             )
         ],
-        data_freshness=[
-            DataFreshness(source="open-meteo", as_of=datetime(2026, 10, 31, 10, 0), stale=False)
-        ],
+        data_freshness=[DataFreshness(source="open-meteo", as_of=datetime(2026, 10, 31, 10, 0), stale=False)],
     )
     assert result.stress_index == 62.5
     assert result.level == RiskLevel.HIGH
@@ -60,9 +55,7 @@ def test_risk_result_instantiation():
 
 def test_error_response():
     """ErrorResponse serialises to the standard shape."""
-    err = ErrorResponse(
-        error=ErrorDetail(code="NOT_FOUND", message="Taluka not found", retryable=False)
-    )
+    err = ErrorResponse(error=ErrorDetail(code="NOT_FOUND", message="Taluka not found", retryable=False))
     data = err.model_dump()
     assert data["error"]["code"] == "NOT_FOUND"
     assert data["error"]["retryable"] is False

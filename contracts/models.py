@@ -13,8 +13,8 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field
 
-
 # --- Enums ---
+
 
 class RiskLevel(str, Enum):
     LOW = "LOW"
@@ -39,6 +39,7 @@ class AgentRunStatus(str, Enum):
 
 # --- Core Models ---
 
+
 class Taluka(BaseModel):
     id: int
     name_en: str
@@ -54,12 +55,14 @@ class Taluka(BaseModel):
 
 class TalukaMatch(BaseModel):
     """Fuzzy match result for place resolution."""
+
     taluka: Taluka
     score: float
     matched_name: str
 
 
 # --- Risk & Engine ---
+
 
 class ComponentDetail(BaseModel):
     name: str
@@ -101,6 +104,7 @@ class RiskResult(BaseModel):
 
 # --- Forecast ---
 
+
 class DailyForecast(BaseModel):
     date: date
     precip_mm: float | None = None
@@ -121,6 +125,7 @@ class ForecastResult(BaseModel):
 
 
 # --- Prices ---
+
 
 class PriceEntry(BaseModel):
     market: str
@@ -146,6 +151,7 @@ class PriceResult(BaseModel):
 
 # --- RAG ---
 
+
 class DocHit(BaseModel):
     doc_id: str
     title: str
@@ -158,8 +164,10 @@ class DocHit(BaseModel):
 
 # --- Agent ---
 
+
 class TraceEvent(BaseModel):
     """Single event in an agent run's trace stream (SSE)."""
+
     node: str
     event_type: str  # e.g. "enter", "tool_call", "tool_result", "verify", "output", "error"
     data: dict[str, Any] = Field(default_factory=dict)
@@ -189,6 +197,7 @@ class AgentResult(BaseModel):
 
 # --- Source Health ---
 
+
 class SourceHealthEntry(BaseModel):
     source: str
     status: SourceStatus
@@ -201,6 +210,7 @@ class SourceHealthEntry(BaseModel):
 
 
 # --- Alert ---
+
 
 class AlertResult(BaseModel):
     alert_id: int
@@ -216,6 +226,7 @@ class AlertResult(BaseModel):
 
 # --- Evidence Report ---
 
+
 class ReportResult(BaseModel):
     taluka_id: int
     as_of_date: date
@@ -228,6 +239,7 @@ class ReportResult(BaseModel):
 
 
 # --- API Error Shape ---
+
 
 class ErrorDetail(BaseModel):
     code: str

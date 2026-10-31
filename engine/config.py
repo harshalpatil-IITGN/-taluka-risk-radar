@@ -27,17 +27,17 @@ LEVEL_THRESHOLDS = {
 # Trigger thresholds (configurable, reported criterion)
 TRIGGERS = {
     "T1_DROUGHT_STRESS": {
-        "seasonal_deficit_pct": 25,   # > 25%
-        "dry_spell_days": 21,         # >= 21 days
+        "seasonal_deficit_pct": 25,  # > 25%
+        "dry_spell_days": 21,  # >= 21 days
     },
     "T2_DRY_SPELL_CRITICAL": {
-        "dry_spell_days": 14,         # >= 14 days during sensitive window
+        "dry_spell_days": 14,  # >= 14 days during sensitive window
     },
     "T3_FORECAST_DRY": {
-        "forecast_pct_of_normal": 20, # < 20% of normal
+        "forecast_pct_of_normal": 20,  # < 20% of normal
     },
     "T4_UNSEASONAL_RAIN": {
-        "precip_mm_threshold": 100,   # > X mm in 24-48h outside normal season
+        "precip_mm_threshold": 100,  # > X mm in 24-48h outside normal season
     },
 }
 
